@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -13,6 +14,8 @@ import { HeroService } from './hero.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
 
 @NgModule({
   imports: [
@@ -20,6 +23,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     ReactiveFormsModule,
     AppRoutingModule, 
     FormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+    InMemoryDataService, { dataEncapsulation: false }
+    ),
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
     ])
@@ -34,8 +41,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     DashboardComponent
   ],
   bootstrap: [ AppComponent ],
-  providers: [HeroService, MessageService]
+  providers: [HeroService, MessageService, InMemoryDataService]
 })
+
+
 export class AppModule { }
 
 
